@@ -2,19 +2,18 @@
 class Travel:
 
     def __init__(self, destination, nowMonth, depMonth, depWeek, depDay, arrMonth, arrWeek, arrDay):
-        """
-        """
 
         self.destination = destination
         self.nowMonth = nowMonth
         self.depMonth = depMonth
-        """self.depWeek = depWeek
+        self.depWeek = depWeek
         self.depDay = depDay
         self.arrMonth = arrMonth
         self.arrWeek = arrWeek
-        self.arrDay = arrDay"""
+        self.arrDay = arrDay
 
-    def depMonthCalc(self):
+
+    def monthCalc(self):
 
         tmpValue = int(self.depMonth) - int(self.nowMonth)
 
@@ -22,6 +21,16 @@ class Travel:
             tmpValue = tmpValue + 12
 
         return str(tmpValue + 2)
+
+    def dayCalc(self):
+        dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        for i in range(len(dayOfWeek)):
+            if dayOfWeek[i] == self.depDay:
+                return i+1
+            else:
+                continue
+
+    
 
 
 #str(int(depMonth) - int(nowMonth) + 2)
