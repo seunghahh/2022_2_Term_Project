@@ -1,4 +1,3 @@
-
 class Travel:
 
     def __init__(self, destination, nowMonth, depMonth, depWeek, depDay, arrMonth, arrWeek, arrDay):
@@ -11,7 +10,6 @@ class Travel:
         self.arrMonth = arrMonth
         self.arrWeek = arrWeek
         self.arrDay = arrDay
-
 
     def monthCalc(self):
 
