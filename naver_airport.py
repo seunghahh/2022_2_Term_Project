@@ -6,55 +6,38 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-nowYear = input("What Year now?: ")
-nowMonth = input("What Month now?: ")
-
-year = int(nowYear)
-month = int(nowMonth)
+nowYear = int(input("What Year now?: "))
+nowMonth = int(input("What Month now?: "))
 
 destination = input("Enter your destination: ")
 
 a = travel.Travel(nowYear, nowMonth, destination)
 
-print(a.destination)
-
 print("\nChoose your travel date.\n")
 
 for i in range(13):
-    if month > 12:
-        year += 1
-        month = month - 12
+    if nowMonth > 12:
+        nowYear += 1
+        nowMonth = nowMonth - 12
     
-    calendar.prmonth(year, month)
+    calendar.prmonth(nowYear, nowMonth)
     print("\n", end = "")
-    month += 1
+    nowMonth += 1
 
-travelDate = input("Enter your departure date(ex;2023.01.01): ")
+departureDate = input("Enter your departure date(ex;2023.01.01): ")
 arriveDate = input("Enter your come back date(ex:2023.01.07): ")
 
-travel.Travel.travelDateCalc(a, travelDate)
-travel.Travel.travelDateCalc(a, arriveDate)
+travel.Departure.depDateCalc(a, departureDate)
+travel.Arrival.arrDateCalc(a, arriveDate)
 
-"""nowMonth = input("What month now?: ")
-depMonth = input("What month do you want to leave?: ")
-depWeek = input("What week do you want to leave?: ")
-depDay = input("What day of the week do you want to leave?: ")
-arriveMonth = input("What month do you want to come back?: ")
-arriveWeek = input("What week do you want to come back?: ")
-arriveDay = input("What day of the week do you want to come back?: ")
+travel.Departure.depWeekCalc(a, a.depYear, a.depMonth, a.depDay)
+travel.Arrival.arrWeekCalc(a, a.arrYear, a.arrMonth, a.arrDay)
 
-depMonth = str(int(depMonth) - int(nowMonth) + 2)
-def dayCalc(day):
-    week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    for i in range(len(week)):
-        if week[i] == day:
-            return i+1
-        else:
-            continue
+travel.Departure.depMonthCalc(a)
+travel.Arrival.arrMonthCalc(a)
 
-depDay = str(dayCalc(depDay))
-arriveMonth = str(int(arriveMonth) - int(nowMonth) + 2)
-arriveDay = str(dayCalc(arriveDay))"""
+travel.Departure.depDayofWeekCalc(a)
+travel.Arrival.arrDayofWeekCalc(a)
 
 browser = webdriver.Chrome()
 browser.maximize_window()
@@ -75,14 +58,14 @@ depart = date[0]
 depart.click()
 time.sleep(1)
 
-xpath_depart = '//*[@id="__next"]/div/div[1]/div[9]/div[2]/div[1]/div[2]/div/div[{}]/table/tbody/tr[{}]/td[{}]/button/b'.format(depMonth,depWeek,depDay)
+xpath_depart = '//*[@id="__next"]/div/div[1]/div[9]/div[2]/div[1]/div[2]/div/div[{}]/table/tbody/tr[{}]/td[{}]/button/b'.format(a.depMonthCode, a.depWeek, a.depDayofWeek)
 browser.find_element(By.XPATH, xpath_depart).click()
 
 arrive = date[1]
 arrive.click()
 time.sleep(1)
 
-xpath_arrive = '//*[@id="__next"]/div/div[1]/div[9]/div[2]/div[1]/div[2]/div/div[{}]/table/tbody/tr[{}]/td[{}]/button/b'.format(arriveMonth, arriveWeek, arriveDay)
+xpath_arrive = '//*[@id="__next"]/div/div[1]/div[9]/div[2]/div[1]/div[2]/div/div[{}]/table/tbody/tr[{}]/td[{}]/button/b'.format(a.arrMonthCode, a.arrWeek, a.arrDayofWeek)
 browser.find_element(By.XPATH, xpath_arrive).click()
 
 browser.find_element(By.CLASS_NAME, 'searchBox_search__2KFn3').click()

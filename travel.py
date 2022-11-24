@@ -1,3 +1,6 @@
+import calendar
+from datetime import datetime
+
 class Travel:
 
     def __init__(self, nowYear, nowMonth, destination):
@@ -5,65 +8,234 @@ class Travel:
         self.nowYear = nowYear
         self.nowMonth = nowMonth
         self.destination = destination
-
-        """self.destination = destination
-        self.depMonth = depMonth
-        self.depWeek = depWeek
-        self.depDay = depDay
-        self.arrMonth = arrMonth
-        self.arrWeek = arrWeek
-        self.arrDay = arrDay"""
-
-    """
-    def inputTravel(self):
-        self.destination = input("Enter your destination: ")
-        self.nowMonth = input("What month now?: ")
-        self.depMonth = input("What month do you want to leave?: ")
-        self.depWeek = input("What week do you want to leave?: ")
-        self.depDay = input("What day of the week do you want to leave?: ")
-        self.arriveMonth = input("What month do you want to come back?: ")
-        self.arriveWeek = input("What week do you want to come back?: ")
-        self.arriveDay = input("What day of the week do you want to come back?: ")"""
-
-
+        self.week = {}
+"""
     def depDateCalc(self, depDate):
-        self.depYear = depDate[:4]
-        self.depMonth = depDate[5:7]
-        self.depDay = depDate[8:]
+        self.depYear = int(depDate[:4])
+        self.depMonth = int(depDate[5:7])
+        self.depDay = int(depDate[8:])
 
     def arrDateCalc(self, arrDate):
-        self.arrMonth = 1
-        self.arrWeek = 1
-        self.arrDay = 1
+        self.arrYear = int(arrDate[:4])
+        self.arrMonth = int(arrDate[5:7])
+        self.arrDay = int(arrDate[8:])
 
-    def monthCalc(self):
+    def depWeekCalc(self, year, month, day):
 
-        tmpValue = int(self.depMonth) - int(self.nowMonth)
+        inputDate = f'{year:04d}-{month:02d}-{day:02d}'
+        inputDate = datetime.strptime(inputDate, '%Y-%m-%d')
+
+        lastDay = calendar.monthrange(year, month)[1]
+
+        weekNo = 1
+        tmpList = []
+
+        for i in range(1, lastDay):
+
+            dayofWeek = inputDate.replace(day = i).weekday()
+            tmpList.append(i)
+
+            if dayofWeek == 5:
+                self.week[weekNo] = tmpList
+                weekNo += 1
+                tmpList = []
+                continue
+
+        for weekKey in self.week:
+
+            weekValue = self.week.get(weekKey)
+
+            for i in range(len(weekValue)):
+
+                if weekValue[i] == day:
+                    self.depWeek = str(weekKey)
+                else:
+                    continue
+
+    def arrWeekCalc(self, year, month, day):
+
+        inputDate = f'{year:04d}-{month:02d}-{day:02d}'
+        inputDate = datetime.strptime(inputDate, '%Y-%m-%d')
+
+        lastDay = calendar.monthrange(year, month)[1]
+
+        weekNo = 1
+        tmpList = []
+
+        for i in range(1, lastDay):
+
+            dayofWeek = inputDate.replace(day = i).weekday()
+            tmpList.append(i)
+
+            if dayofWeek == 5:
+                self.week[weekNo] = tmpList
+                weekNo += 1
+                tmpList = []
+                continue
+
+        for weekKey in self.week:
+
+            weekValue = self.week.get(weekKey)
+
+            for i in range(len(weekValue)):
+
+                if weekValue[i] == day:
+                    self.arrWeek = str(weekKey)
+                else:
+                    continue
+
+    def depMonthCalc(self):
+
+        tmpValue = self.depMonth - self.nowMonth
 
         if tmpValue < 0:
             tmpValue = tmpValue + 12
 
-        return str(tmpValue + 2)
+        self.depMonthCode = str(tmpValue + 2)
 
-    def dayCalc(self):
-        dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        for i in range(len(dayOfWeek)):
-            if dayOfWeek[i] == self.depDay:
-                return i+1
-            else:
+    def arrMonthCalc(self):
+
+        tmpValue = self.arrMonth - self.nowMonth
+
+        if tmpValue < 0:
+            tmpValue = tmpValue + 12
+
+        self.arrMonthCode = str(tmpValue + 2)
+
+    def depDayofWeekCalc(self):
+        tmpDay = calendar.weekday(self.depYear, self.depMonth, self.depDay)
+        if tmpDay == 6:
+            self.depDayofWeek = '1'
+        else:
+            self.depDayofWeek = str(tmpDay + 2)
+
+    def arrDayofWeekCalc(self):
+        tmpDay = calendar.weekday(self.arrYear, self.arrMonth, self.arrDay)
+        if tmpDay == 6:
+            self.arrDayofWeek = '1'
+        else:
+            self.arrDayofWeek = str(tmpDay + 2)"""
+
+class Departure(Travel):
+
+    def __init__(self, nowYear, nowMonth, destination):
+
+        super().__init__(nowYear, nowMonth, destination)
+
+    def depDateCalc(self, depDate):
+
+        self.depYear = int(depDate[:4])
+        self.depMonth = int(depDate[5:7])
+        self.depDay = int(depDate[8:])
+
+    def depWeekCalc(self, year, month, day):
+
+        inputDate = f'{year:04d}-{month:02d}-{day:02d}'
+        inputDate = datetime.strptime(inputDate, '%Y-%m-%d')
+
+        lastDay = calendar.monthrange(year, month)[1]
+
+        weekNo = 1
+        tmpList = []
+
+        for i in range(1, lastDay):
+
+            dayofWeek = inputDate.replace(day = i).weekday()
+            tmpList.append(i)
+
+            if dayofWeek == 5:
+                self.week[weekNo] = tmpList
+                weekNo += 1
+                tmpList = []
                 continue
 
-    
+        for weekKey in self.week:
 
+            weekValue = self.week.get(weekKey)
 
-#str(int(depMonth) - int(nowMonth) + 2)
+            for i in range(len(weekValue)):
 
+                if weekValue[i] == day:
+                    self.depWeek = str(weekKey)
+                else:
+                    continue
 
-"""destination = input("Enter your destination: ")
-nowMonth = input("What month now?: ")
-depMonth = input("What month do you want to leave?: ")
-depWeek = input("What week do you want to leave?: ")
-depDay = input("What day of the week do you want to leave?: ")
-arriveMonth = input("What month do you want to come back?: ")
-arriveWeek = input("What week do you want to come back?: ")
-arriveDay = input("What day of the week do you want to come back?: ")"""
+    def depMonthCalc(self):
+
+        tmpValue = self.depMonth - self.nowMonth
+
+        if tmpValue < 0:
+            tmpValue = tmpValue + 12
+
+        self.depMonthCode = str(tmpValue + 2)   
+
+    def depDayofWeekCalc(self):
+
+        tmpDay = calendar.weekday(self.depYear, self.depMonth, self.depDay)
+        
+        if tmpDay == 6:
+            self.depDayofWeek = '1'
+        else:
+            self.depDayofWeek = str(tmpDay + 2)
+
+class Arrival(Travel):
+
+    def __init__(self, nowYear, nowMonth, destination):
+
+        super().__init__(nowYear, nowMonth, destination)
+
+    def arrDateCalc(self, arrDate):
+
+        self.arrYear = int(arrDate[:4])
+        self.arrMonth = int(arrDate[5:7])
+        self.arrDay = int(arrDate[8:])
+
+    def arrWeekCalc(self, year, month, day):
+
+        inputDate = f'{year:04d}-{month:02d}-{day:02d}'
+        inputDate = datetime.strptime(inputDate, '%Y-%m-%d')
+
+        lastDay = calendar.monthrange(year, month)[1]
+
+        weekNo = 1
+        tmpList = []
+
+        for i in range(1, lastDay):
+
+            dayofWeek = inputDate.replace(day = i).weekday()
+            tmpList.append(i)
+
+            if dayofWeek == 5:
+                self.week[weekNo] = tmpList
+                weekNo += 1
+                tmpList = []
+                continue
+
+        for weekKey in self.week:
+
+            weekValue = self.week.get(weekKey)
+
+            for i in range(len(weekValue)):
+
+                if weekValue[i] == day:
+                    self.arrWeek = str(weekKey)
+                else:
+                    continue
+
+    def arrMonthCalc(self):
+
+        tmpValue = self.arrMonth - self.nowMonth
+
+        if tmpValue < 0:
+            tmpValue = tmpValue + 12
+
+        self.arrMonthCode = str(tmpValue + 2)                 
+
+    def arrDayofWeekCalc(self):
+
+        tmpDay = calendar.weekday(self.arrYear, self.arrMonth, self.arrDay)
+
+        if tmpDay == 6:
+            self.arrDayofWeek = '1'
+        else:
+            self.arrDayofWeek = str(tmpDay + 2)
