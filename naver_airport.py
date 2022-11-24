@@ -6,12 +6,14 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+today = input("Enter today date(ex:2022.12.25): ")
 nowYear = int(input("What Year now?: "))
 nowMonth = int(input("What Month now?: "))
 
 destination = input("Enter your destination: ")
 
 a = travel.Travel(nowYear, nowMonth, destination)
+#travel.Travel.todayCalc(a)
 
 print("\nChoose your travel date.\n")
 
