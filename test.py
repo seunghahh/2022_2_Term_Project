@@ -1,4 +1,5 @@
 import calendar
+from datetime import date
 
 nowYear = input("What Year now?: ")
 nowMonth = input("What Month now?: ")
@@ -23,3 +24,5 @@ depMonth = travelDate[5:7]
 depDay = travelDate[8:]
 
 print(depYear, depMonth, depDay)
+
+print(date(2022,12,15).isocalendar())

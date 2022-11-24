@@ -1,10 +1,12 @@
 class Travel:
 
-    def __init__(self):
-        self.travel = []
+    def __init__(self, nowYear, nowMonth, destination):
+        
+        self.nowYear = nowYear
+        self.nowMonth = nowMonth
+        self.destination = destination
 
         """self.destination = destination
-        self.nowMonth = nowMonth
         self.depMonth = depMonth
         self.depWeek = depWeek
         self.depDay = depDay
@@ -12,7 +14,7 @@ class Travel:
         self.arrWeek = arrWeek
         self.arrDay = arrDay"""
 
-
+    """
     def inputTravel(self):
         self.destination = input("Enter your destination: ")
         self.nowMonth = input("What month now?: ")
@@ -21,7 +23,18 @@ class Travel:
         self.depDay = input("What day of the week do you want to leave?: ")
         self.arriveMonth = input("What month do you want to come back?: ")
         self.arriveWeek = input("What week do you want to come back?: ")
-        self.arriveDay = input("What day of the week do you want to come back?: ")
+        self.arriveDay = input("What day of the week do you want to come back?: ")"""
+
+
+    def depDateCalc(self, depDate):
+        self.depYear = depDate[:4]
+        self.depMonth = depDate[5:7]
+        self.depDay = depDate[8:]
+
+    def arrDateCalc(self, arrDate):
+        self.arrMonth = 1
+        self.arrWeek = 1
+        self.arrDay = 1
 
     def monthCalc(self):
 

@@ -1,4 +1,4 @@
-#import travel
+import travel
 import calendar
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,9 +9,16 @@ from selenium.webdriver.support import expected_conditions as EC
 nowYear = input("What Year now?: ")
 nowMonth = input("What Month now?: ")
 
-print("\nChoose your travel date.\n")
 year = int(nowYear)
 month = int(nowMonth)
+
+destination = input("Enter your destination: ")
+
+a = travel.Travel(nowYear, nowMonth, destination)
+
+print(a.destination)
+
+print("\nChoose your travel date.\n")
 
 for i in range(13):
     if month > 12:
@@ -22,10 +29,13 @@ for i in range(13):
     print("\n", end = "")
     month += 1
 
-travelDate = input("Enter your travel date(ex;2023.01.01): ")
-    
-destination = input("Enter your destination: ")
-nowMonth = input("What month now?: ")
+travelDate = input("Enter your departure date(ex;2023.01.01): ")
+arriveDate = input("Enter your come back date(ex:2023.01.07): ")
+
+travel.Travel.travelDateCalc(a, travelDate)
+travel.Travel.travelDateCalc(a, arriveDate)
+
+"""nowMonth = input("What month now?: ")
 depMonth = input("What month do you want to leave?: ")
 depWeek = input("What week do you want to leave?: ")
 depDay = input("What day of the week do you want to leave?: ")
@@ -44,7 +54,7 @@ def dayCalc(day):
 
 depDay = str(dayCalc(depDay))
 arriveMonth = str(int(arriveMonth) - int(nowMonth) + 2)
-arriveDay = str(dayCalc(arriveDay))
+arriveDay = str(dayCalc(arriveDay))"""
 
 browser = webdriver.Chrome()
 browser.maximize_window()
@@ -54,9 +64,9 @@ browser.get(url)
 
 browser.find_elements(By.CLASS_NAME, 'select_name__1L61v')[1].click()
     
-browser.find_element(By.CLASS_NAME, 'autocomplete_input__1vVkF').send_keys('{}'.format(destination))
+browser.find_element(By.CLASS_NAME, 'autocomplete_input__1vVkF').send_keys('{}'.format(a.destination))
 time.sleep(1)
-tmp = browser.find_elements(By.PARTIAL_LINK_TEXT, '{}'.format(destination))
+tmp = browser.find_elements(By.PARTIAL_LINK_TEXT, '{}'.format(a.destination))
 tmp[0].click()
 
 date = browser.find_elements(By.CLASS_NAME, 'tabContent_option__2y4c6')
