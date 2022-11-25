@@ -69,8 +69,95 @@ def weekCalc(y, m, d):
             else:
                 continue
 
-print(weekCalc(2022,12,15))"""
+print(weekCalc(2022,12,15))
 import calendar
 a = calendar.weekday(2022, 12, 14)
 print(a)
-print(type(a))
+print(type(a))"""
+
+import travel
+
+travelPlan = travel.Travel("2022.11.25", "JFK")
+travelPlan.todayCalc()
+
+while True:
+
+    departureDate = input()
+    travel.Departure.depDateCalc(travelPlan, departureDate)
+
+    if travelPlan.depYear < travelPlan.todayYear:
+        print("Enter date after today.")
+
+    elif travelPlan.depYear > travelPlan.todayYear:
+
+        if travelPlan.depYear - travelPlan.todayYear >= 2:
+            print("Enter the date within a year from today.")
+
+        else:
+            if travelPlan.depMonth > travelPlan.todayMonth:
+                print("Enter the date within a year from today.")
+
+            elif travelPlan.depMonth == travelPlan.todayMonth:
+
+                if travelPlan.depDay > travelPlan.todayDay:
+                    print("Enter the date within a year from today.")
+
+                else:
+                    break
+            
+            else:
+                break
+
+    else:
+
+        if travelPlan.depMonth < travelPlan.todayMonth:
+            print("Enter date after today.")
+
+        elif travelPlan.depMonth > travelPlan.todayMonth:
+            break
+
+        else:
+ 
+            if travelPlan.depDay <= travelPlan.todayDay:
+                print("Enter date after today.")
+
+            else:
+                break
+print(departureDate)
+
+while True:
+
+    arriveDate = input()
+    travel.Arrival.arrDateCalc(travelPlan, arriveDate)
+
+    if travelPlan.arrYear < travelPlan.depYear:
+        print("Enter date after departure.")
+
+    else: 
+
+        if travelPlan.arrYear - travelPlan.todayYear >= 2:
+            print("Enter the date within a year from today.")
+        
+        else:
+
+            if travelPlan.arrYear == travelPlan.depYear:
+
+                if travelPlan.arrMonth < travelPlan.depMonth:
+                    print("Enter date after departure.")
+                
+                elif travelPlan.arrMonth > travelPlan.depMonth:
+                    break
+
+                else: 
+                    if travelPlan.arrDay < travelPlan.depDay:
+                        print("Enter date after departure.")
+                    else:
+                        break
+            
+            else:
+                break
+
+print(arriveDate, "ok")
+
+
+
