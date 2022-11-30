@@ -73,11 +73,11 @@ print(weekCalc(2022,12,15))
 import calendar
 a = calendar.weekday(2022, 12, 14)
 print(a)
-print(type(a))"""
+print(type(a))
 
 import travel
 
-travelPlan = travel.Travel("2022.11.25", "JFK")
+travelPlan = travel.Travel("2022.11.28", "JFK")
 travelPlan.todayCalc()
 
 while True:
@@ -127,37 +127,83 @@ print(departureDate)
 
 while True:
 
+
     arriveDate = input()
     travel.Arrival.arrDateCalc(travelPlan, arriveDate)
+
 
     if travelPlan.arrYear < travelPlan.depYear:
         print("Enter date after departure.")
 
-    else: 
+    else: #arrYear >= depYear
 
         if travelPlan.arrYear - travelPlan.todayYear >= 2:
             print("Enter the date within a year from today.")
         
-        else:
+        else: #arrYear - depYear = 1 or arrYear = depYear
 
             if travelPlan.arrYear == travelPlan.depYear:
 
-                if travelPlan.arrMonth < travelPlan.depMonth:
-                    print("Enter date after departure.")
-                
-                elif travelPlan.arrMonth > travelPlan.depMonth:
-                    break
+                if travelPlan.depYear == travelPlan.todayYear:
 
-                else: 
-                    if travelPlan.arrDay < travelPlan.depDay:
+                    if travelPlan.arrMonth < travelPlan.depMonth:
                         print("Enter date after departure.")
+                    
+                    elif travelPlan.arrMonth == travelPlan.depMonth:
+
+                        if travelPlan.arrDay < travelPlan.depDay:
+                            print("Enter date after departure.")
+                        
+                        else:
+                            break
+
                     else:
                         break
-            
-            else:
-                break
 
-print(arriveDate, "ok")
+                else: #depYear > todayYear
+                    
+                    if travelPlan.arrMonth > travelPlan.todayMonth:
+                         print("Enter the date within a year from today.")
 
+                    else:
+                        if travelPlan.arrMonth < travelPlan.depMonth:
+                            print("Enter date after departure.")
 
+                        elif travelPlan.arrMonth == travelPlan.depMonth:
 
+                            if travelPlan.arrDay < travelPlan.depDay:
+                                print("Enter date after departure.")
+
+                            else:
+                                if travelPlan.arrDay > travelPlan.todayDay:
+                                    print("Enter the date within a year from today.")
+                                else:
+                                    break
+
+                        else: # arrMonth > depMonth
+                            if travelPlan.arrDay > travelPlan.todayDay:
+                                print("Enter the date within a year from today.")
+
+                            else:
+                                break
+
+            else: # arrYear - depYear = 1
+                if travelPlan.arrMonth > travelPlan.todayMonth:
+                    print("Enter the date within a year from today.")
+
+                elif travelPlan.arrMonth == travelPlan.todayMonth:
+                    if travelPlan.arrDay > travelPlan.todayDay:
+                        print("Enter the date within a year from today.")
+                    
+                    else:
+                        break
+                
+                else:
+                    break
+
+print(arriveDate, "ok")"""
+
+import matplotlib.pyplot as plt
+
+plt.plot([1,2,3,4],[1,3,2,5])
+plt.show()
