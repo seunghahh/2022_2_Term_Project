@@ -201,9 +201,37 @@ while True:
                 else:
                     break
 
-print(arriveDate, "ok")"""
+print(arriveDate, "ok")
 
 import matplotlib.pyplot as plt
 
-plt.plot([1,2,3,4],[1,3,2,5])
-plt.show()
+while True:
+
+
+    print("What do you want to do?")
+    print("1. Choose another travel date.\n2. Check the lowest price graph.\n3. Quit this program.")
+    userInput = int(input())
+
+    if userInput == 1:
+        continue
+
+    elif userInput == 2:
+        plt.plot([1,2,3,4])
+
+    elif userInput == 3:
+        print("End this program.")
+        break
+
+    else:
+        print("Enter the number between 1 and 3.")"""
+
+test = '에미레이트항공\n동일가 다른 일정2\n23:50ICN\n18:55JFK\n+1일\n경유 2, 33시간 05분\n23:00JFK\n16:50ICN\n+2일\n경유 1, 27시간 50분\n성인/현대카드 프리미엄 the Red 2(이용실적 충족시)\n왕복 2,424,600원~'
+
+a = test.find('왕복')
+b = test.find('~')
+print(a)
+print(b)
+
+test1 = test[a+3 : b-1]
+test2 = int(test1.replace(',', ''))
+print(test2)
